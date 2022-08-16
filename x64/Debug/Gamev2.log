@@ -1,0 +1,3 @@
+﻿  main.cpp
+D:\juego\gamev2\Gamev2\main.cpp(51,7): warning C4102: 'sf': etiqueta sin referencia
+  Gamev2.vcxproj -> D:\juego\gamev2\Gamev2\x64\Debug\Gamev2.exe
