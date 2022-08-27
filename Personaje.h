@@ -9,8 +9,17 @@ using namespace sf;
 //al ser un objeto dibujable se lo podemos dar a window
 class Personaje: public Drawable, public Collisionable
 {
+	
+	//arma
+	Sprite _arma;
+	Texture t_arma;
+	
+
+	//personaje
 	Sprite _sprite;
 	Texture _textura;
+
+
 	Vector2f _velocidad;
 	Vector2i _pos_mouse;
 	float _frame;
@@ -19,6 +28,7 @@ public:
 	Personaje();
 	void update();
 	void draw(RenderTarget& target, RenderStates states)const override;
+	//void navajazo(RenderTarget& target, RenderStates states)const override;
 	//el override es para decirle que estoy sobre escribiendo
 	
 	//metodo para detectar las colisiones del personaje

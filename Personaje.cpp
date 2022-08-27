@@ -5,17 +5,23 @@ Personaje::Personaje()
 { 
     _frame = 0;
     _velocidad = {4,4};
-    _textura.loadFromFile("chari_sheet.png");
 
+
+    _textura.loadFromFile("chari_sheet.png");
     //agregar textura al sprite
     _sprite.setTexture(_textura);
-
-    
-    
     _sprite.setTextureRect({ 4, 0, 62, 60 });
 
     //modificamos el punto de agarre del sprite 
     _sprite.setOrigin(_sprite.getGlobalBounds().width / 2, _sprite.getGlobalBounds().height);
+
+    
+    //agregando arma
+    t_arma.loadFromFile("cuchillo.png");
+    _arma.setTexture(t_arma);
+    _arma.setOrigin(_arma.getGlobalBounds().width / 2, _arma.getGlobalBounds().height);
+    _arma.setScale(0.09, 0.09);
+    
 }
 
 void Personaje::update()
@@ -84,7 +90,12 @@ void Personaje::draw(RenderTarget& target, RenderStates states)const
 {
     target.draw(_sprite, states);
 }
+/*
+void Personaje::navajazo(RenderTarget& target, RenderStates states) {
+    target.draw(_arma, states);
 
+}
+*/
 sf::FloatRect Personaje::getBounds() const
 {
     return _sprite.getGlobalBounds();

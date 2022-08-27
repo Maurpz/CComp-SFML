@@ -8,6 +8,7 @@
 #include "Enemy.h"
 #include "Proyectil.h"
 #include <iostream>
+#include <memory>
 
 int main()
 {
@@ -21,10 +22,15 @@ int main()
     //Cargamos una fuente a nuestro en sfml
     sf::Font font;
     font.loadFromFile("pixel.ttf");
-    sf::Text text, textVidas;
+    sf::Text text, textVidas,textover;
     text.setFont(font);
     textVidas.setFont(font);
     textVidas.setPosition({ 0, 50 });
+
+    textover.setFont(font);
+    textover.setCharacterSize(60);
+    textover.setPosition({ 150,250});
+
     //creando objeto personaje
     Personaje n1;
     //creando objeto item anillo
@@ -39,7 +45,7 @@ int main()
     enemy.respawn();
 
 
-    //Proyectil bala;
+    Proyectil bala;
 
 
 
@@ -60,6 +66,13 @@ int main()
 
     sf::Sound sound;
     sound.setBuffer(buffer);
+
+    sf::SoundBuffer choque;
+    choque.loadFromFile("choque.wav");
+
+    sf::Sound cho;
+    cho.setBuffer(choque);
+    
 
     sf::SoundBuffer sound_power;
     sound_power.loadFromFile("life.wav");
@@ -119,11 +132,29 @@ int main()
                 vidas--;
                 enemy.respawn();
             }
+
+            if (bala.isCollisionable(enemy)) {
+                enemy.respawn();
+                cho.play();
+            }
+          
+            /*
+            if (bala.isCollisionable(enemy)) {
+                n1.hited();
+                enemy.youDamaged();
+                enemy.respawn();
+            }
+            */
         }
 
-        text.setString(std::to_string(puntos));
-        textVidas.setString("Vidas: " + std::to_string(vidas));
 
+        text.setString(std::to_string(puntos));
+        textVidas.setString("V" + std::to_string(vidas));
+        textover.setString("G A M E  O V E R");
+        
+        
+
+        
         //limpiar la pantalla
         window.clear();
 
@@ -136,11 +167,23 @@ int main()
 
         //dibujar proyectil
         //window.draw(bala);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) ){
-            //bala.respawn(n1.obtener_pos());
-            //window.draw(bala);
+
+        //Proyectil** balas = new Proyectil*[7];
+        
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+            bala.respawn(n1.obtener_pos());
+            window.draw(bala);
+            //std::shared_ptr <Proyectil> escudo = std::make_shared<Proyectil>();
+            //escudo->respawn(n1.obtener_pos());
+            //window.draw(escudo);
 
         }
+        else {
+            Vector2i pp = { -100,-100};
+            bala.respawn(pp);
+        }
+        
+        //for (int i = 0; i < 7; i++) {}
 
         //le pasamos el objeto item a window para que este dibuje porque lo definimos en la clase item
         window.draw(item);
@@ -149,6 +192,10 @@ int main()
         window.draw(text);
         window.draw(textVidas);
         window.draw(enemy);
+        if (vidas <= 0) {
+            window.draw(textover);
+        }
+        
         if (timer == 0)
         {
             window.draw(power);
@@ -158,6 +205,6 @@ int main()
     }
 
     //LIiberacion del juego
-
+    
     return 0;
 }
