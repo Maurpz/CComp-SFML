@@ -9,6 +9,7 @@
 #include "Proyectil.h"
 #include <iostream>
 #include <memory>
+#include "Vida.h"
 
 int main()
 {
@@ -22,7 +23,7 @@ int main()
     //Cargamos una fuente a nuestro en sfml
     sf::Font font;
     font.loadFromFile("pixel.ttf");
-    sf::Text text, textVidas,textover;
+    sf::Text text, textVidas,textover,prueva_t;
     text.setFont(font);
     textVidas.setFont(font);
     textVidas.setPosition({ 0, 50 });
@@ -30,6 +31,9 @@ int main()
     textover.setFont(font);
     textover.setCharacterSize(60);
     textover.setPosition({ 150,250});
+
+    prueva_t.setFont(font);
+    prueva_t.setPosition({0,100});
 
     //creando objeto personaje
     Personaje n1;
@@ -46,6 +50,10 @@ int main()
 
 
     Proyectil bala;
+
+
+    Vida s_vidas;
+    s_vidas.respawn();
 
 
 
@@ -92,7 +100,9 @@ int main()
                 window.close();
         }
 
-        if (vidas > 0)
+        //if (vidas > 0)
+        if (n1.getVida()>0)
+
         {
 
             enemy.update();
@@ -128,14 +138,20 @@ int main()
             }
             if (n1.isCollisionable(enemy)) {
                 n1.hited();
+                n1.daño();
                 enemy.youDamaged();
-                vidas--;
+                //vidas--;
                 enemy.respawn();
             }
 
             if (bala.isCollisionable(enemy)) {
                 enemy.respawn();
                 cho.play();
+            }
+
+            if (n1.isCollisionable(s_vidas)) {
+                n1(s_vidas);
+                s_vidas.respawn();
             }
           
             /*
@@ -151,6 +167,7 @@ int main()
         text.setString(std::to_string(puntos));
         textVidas.setString("V" + std::to_string(vidas));
         textover.setString("G A M E  O V E R");
+        prueva_t.setString(std::to_string(n1.getVida()));
         
         
 
@@ -164,6 +181,12 @@ int main()
         window.draw(image_1);
         //le pasamos el objeto n1 al window de manera que este ya sabe como dibujarlo porque lo definimos en la clase
         window.draw(n1);
+
+
+        //dibujando las vida respawn
+
+
+        window.draw(s_vidas);
 
         //dibujar proyectil
         //window.draw(bala);
@@ -191,8 +214,15 @@ int main()
         //Dibujamos la fuente en el juego 
         window.draw(text);
         window.draw(textVidas);
+
+        window.draw(prueva_t);
+
         window.draw(enemy);
-        if (vidas <= 0) {
+
+        //muestra el letrero de se acabo el juego
+        //if (vidas <= 0) 
+        if(n1.getVida()<=0)
+        {
             window.draw(textover);
         }
         

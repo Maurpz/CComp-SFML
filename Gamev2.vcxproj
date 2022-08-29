@@ -140,6 +140,7 @@
     <ClCompile Include="Personaje.cpp" />
     <ClCompile Include="Power.cpp" />
     <ClCompile Include="Proyectil.cpp" />
+    <ClCompile Include="Vida.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collisionable.h" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Personaje.h" />
     <ClInclude Include="Power.h" />
     <ClInclude Include="Proyectil.h" />
+    <ClInclude Include="Vida.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

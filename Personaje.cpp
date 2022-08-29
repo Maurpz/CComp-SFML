@@ -1,5 +1,6 @@
 #include "Personaje.h"
 using namespace std;
+using namespace std;
 
 Personaje::Personaje()
 { 
@@ -111,6 +112,22 @@ void Personaje::agregarVelocidad(float velocidad)
     _velocidad.y += velocidad;
 
 }
+
+int Personaje::getVida()
+{
+    return this->vida_jugador;
+}
+
+void Personaje::operator()(Vida obj)
+{
+    this->vida_jugador += obj.get_valor();
+}
+
+void Personaje::daño()
+{
+    this->vida_jugador -= 1;
+}
+
 
 Vector2i Personaje::obtener_pos() 
 {

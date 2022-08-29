@@ -1,5 +1,6 @@
 #include "SFML/Graphics.hpp"
 #include "Collisionable.h"
+#include "Vida.h"
 #pragma once
 using namespace sf;
 
@@ -9,7 +10,8 @@ using namespace sf;
 //al ser un objeto dibujable se lo podemos dar a window
 class Personaje: public Drawable, public Collisionable
 {
-	
+	//num vidas
+	int vida_jugador = 3;
 	//arma
 	Sprite _arma;
 	Texture t_arma;
@@ -40,5 +42,11 @@ public:
 	Vector2i obtener_mouse();
 
 	void agregarVelocidad(float velocity);
+
+	int getVida();
+
+	void operator()(Vida obj);
+
+	void daño();
 };
 
